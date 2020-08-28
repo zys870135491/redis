@@ -1,6 +1,7 @@
 package com.zys;
 
 
+import com.zys.entity.Emp;
 import com.zys.entity.User;
 import com.zys.service.UserService;
 import org.junit.Test;
@@ -44,19 +45,14 @@ public class UserTest {
     @Test
     public void save(){
         User user = new User();
-        user.setName("张三");
-        user.setAge(22);
-        user.setBirthDay(new Date());
+        user.setName("张三").setAge(22).setBirthDay(new Date());
         userService.save(user);
     }
 
     @Test
     public void update(){
         User user = new User();
-        user.setId(new Long(3));
-        user.setName("李四");
-        user.setAge(23);
-        user.setBirthDay(new Date());
+        user.setId(new Long(3)).setName("李四").setAge(23).setBirthDay(new Date());
         userService.update(user);
     }
 
