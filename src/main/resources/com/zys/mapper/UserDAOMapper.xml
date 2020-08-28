@@ -1,0 +1,41 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zys.dao.UserDAO">
+
+
+
+    <!--开启mybatis二级缓存-->
+    <cache type="com.zys.cache.RedisCache"></cache>
+
+    <resultMap id="myUser" type="com.zys.entity.User">
+        <id column="id" jdbcType="INTEGER" property="id"></id>
+        <result column="name" jdbcType="VARCHAR" property="name"></result>
+        <result column="age" jdbcType="INTEGER" property="age"></result>
+        <result column="birthday" jdbcType="TIMESTAMP" property="birthDay"></result>
+    </resultMap>
+
+    <!--findAll-->
+    <select id="findAll" resultMap="myUser">
+        select * from t_user
+    </select>
+
+    <!--findById-->
+    <select id="findById" resultMap="myUser">
+        select * from t_user where id = #{id}
+    </select>
+
+    <!--delete-->
+    <delete id="delete" parameterType="Long">
+        delete from t_user where id = #{id}
+    </delete>
+
+    <insert id="save" parameterType="com.zys.entity.User">
+        insert into t_user values(#{name},#{age},#{birthDay})
+    </insert>
+
+    <update id="update" parameterType="com.zys.entity.User">
+        update t_user set name =#{name},age=#{age},birthday=#{birthDay}
+        where id = #{id}
+    </update>
+
+
+</mapper>

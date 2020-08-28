@@ -34,7 +34,7 @@ class RedisTemplateTest {
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
 
 		User user = new User();
-		user.setId(UUID.randomUUID().toString());
+		user.setId(new Long(1));
 		user.setName("张三");
 		user.setAge(22);
 		user.setBirthDay(new Date());
