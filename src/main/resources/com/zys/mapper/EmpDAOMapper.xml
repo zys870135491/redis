@@ -1,0 +1,22 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zys.dao.EmpDAO">
+
+
+
+    <!--cache-ref，用来将多个具有关联关系的查询缓存放在一起处理-->
+    <cache-ref namespace="com.zys.dao.UserDAO"></cache-ref>
+
+    <resultMap id="myEmp" type="com.zys.entity.Emp">
+        <id column="id" jdbcType="INTEGER" property="id"></id>
+        <result column="name" jdbcType="VARCHAR" property="name"></result>
+    </resultMap>
+
+    <!--findAll-->
+    <select id="findEmpAll" resultType="com.zys.entity.Emp">
+        select * from t_emp
+    </select>
+
+
+
+
+</mapper>

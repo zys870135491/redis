@@ -32,9 +32,9 @@ public class UserTest {
 
     @Test
     public void findById(){
-        userService.findById(new Long(2));
+        System.out.println(userService.findById(new Long(3)));
         System.out.println("===================================");
-        userService.findById(new Long(2));
+        System.out.println(userService.findById(new Long(3)));
     }
 
     @Test
