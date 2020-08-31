@@ -5,6 +5,7 @@ import org.apache.ibatis.cache.Cache;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.util.DigestUtils;
 
 public class RedisCache implements Cache{
 
@@ -42,7 +43,7 @@ public class RedisCache implements Cache{
         System.out.println("value:" + value);
 
         //使用redisHash类型作为缓存存储类型， key hashkey value
-        getRedisTemplate().opsForHash().put(id.toString(),key.toString(),value);
+        getRedisTemplate().opsForHash().put(id.toString(),getKeyToMD5(key.toString()),value);
     }
 
     /**
@@ -50,7 +51,7 @@ public class RedisCache implements Cache{
      */
     @Override
     public Object getObject(Object key) {
-        return getRedisTemplate().opsForHash().get(id.toString(),key.toString());
+        return getRedisTemplate().opsForHash().get(id.toString(),getKeyToMD5(key.toString()));
     }
 
     /**
@@ -76,5 +77,15 @@ public class RedisCache implements Cache{
     @Override
     public int getSize() {
         return  getRedisTemplate().opsForHash().size(id.toString()).intValue();
+    }
+
+    /**
+     *  mybatis提供的key过长，建议使用md5进行优化
+     * 进行MD5加密
+     * @param key
+     * @return
+     */
+    public String getKeyToMD5(String key){
+        return DigestUtils.md5DigestAsHex(key.getBytes());
     }
 }
